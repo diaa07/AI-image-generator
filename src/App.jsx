@@ -29,6 +29,7 @@ const App = () => {
     }
 
     setError("");
+    setSorc("");
     setLoading("Loading image, please wait...");
 
     try {
@@ -42,7 +43,6 @@ const App = () => {
         method: "POST",
         headers: {
           Authorization: `Bearer ${apiKey}`,
-          // لا تكتب Content-Type مع FormData
         },
         body: formData,
       });

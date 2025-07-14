@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   color: black;
+  box-sizing: border-box;
 }
 
 body {
@@ -20,88 +21,98 @@ body {
 }
 
 .container {
-  margin-top: 64px;
-  width: 70vw;
-  min-width: 300px;
+  margin: 32px auto;
+  width: 90%;
+  max-width: 800px;
   background-color: rgba(0, 0, 0, 0.9);
   border-radius: 30px;
-  border: dotted;
-  border-color: rgba(210, 0, 190, 0.5);
+  border: dotted 2px rgba(210, 0, 190, 0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
 }
 
 .title {
-  margin: 40px 0px;
+  margin: 24px 0;
   color: rgba(215, 30, 200, 1);
-  font-size: clamp(16px, 4vw, 28px);
+  font-size: clamp(18px, 5vw, 28px);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
 }
 
 .selectors {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
+  margin: 10px 0 20px;
+  width: 100%;
 }
 
 .select-cont {
   display: flex;
   flex-direction: row;
-  margin: 28px 20px;
-  margin-top: 0;
-  transition: all 0.5s;
+  align-items: center;
+  gap: 10px;
 }
 
 .select-cont .txt {
   color: #ccc;
-  font-size: 18px;
-  margin-right: 15px;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+select {
+  padding: 6px 8px;
+  border-radius: 8px;
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #444;
 }
 
 textarea {
   all: unset;
-  width: 50%;
+  width: 100%;
   background-color: #444;
-  padding: 8px;
+  padding: 12px;
   margin: 0 0 28px 0;
   color: #ccc;
   border-radius: 15px;
-}
-
-@keyframes vmove {
-  100%,
-  0% {
-    transform: translateX(0px);
-  }
-  50% {
-    transform: translateX(-5px);
-  }
+  font-size: 16px;
+  resize: vertical;
+  min-height: 80px;
 }
 
 .generate-button {
-  margin: 28px 20px;
-  margin-top: 0;
   height: 40px;
-  width: 80px;
+  padding: 0 20px;
   cursor: pointer;
   background-color: #00ec27;
   border: none;
   border-radius: 15px;
-  font-weight: normal;
   font-size: 16px;
   transition: all 0.3s ease;
 }
 
 .generate-button:hover {
-  opacity: 0.8;
+  opacity: 0.85;
   animation: vmove 1s ease 1;
 }
 
 .generate-button:active {
-  transform: scale(0.9);
+  transform: scale(0.95);
   animation: none;
+}
+
+@keyframes vmove {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
 }
 
 .result-container {
@@ -135,33 +146,72 @@ textarea {
 
 .info-text {
   margin-top: 10px;
-  position: static;
   color: #ccc;
   text-align: center;
 }
 
-@media (max-width: 600px) {
-  .select-cont {
-    flex-direction: column;
-  }
-  .generate-button {
-    height: 40px;
-  }
-  .result-image {
-    max-height: 250px;
-  }
-  .result-container {
-    height: auto;
-  }
-}
-
 .error-message {
   color: red;
-  width: 50%;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .loading {
   margin-bottom: 150px;
   font-size: clamp(16px, 4vw, 28px);
   color: #ccc;
+}
+
+@media (max-width: 600px) {
+  .select-cont {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .generate-button {
+    width: 100%;
+  }
+
+  .result-image {
+    max-height: 250px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  textarea {
+    font-size: 15px;
+  }
+}
+
+.select-cont select {
+  padding: 8px 40px 8px 12px;
+  border-radius: 8px;
+  background-color: #222;
+  color: #eee;
+  border: 1px solid #444;
+  font-size: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  position: relative;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23ccc' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.select-cont select:focus {
+  outline: none;
+  border-color: #888;
+  box-shadow: 0 0 5px rgba(215, 30, 200, 0.5);
+}
+
+.select-cont option {
+  background-color: #222;
+  color: #eee;
 }
