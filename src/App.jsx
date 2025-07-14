@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const App = () => {
   const sizes = ["1:1", "3:2", "4:3", "3:4", "9:16", "16:9"];
@@ -18,9 +18,36 @@ const App = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState("");
   const [sorc, setSorc] = useState("");
+  const [history, setHistory] = useState([]);
+  const historyRef = useRef(null);
 
   const apiKey = import.meta.env.VITE_API_KEY;
   const url = "https://api.vyro.ai/v2/image/generations";
+
+  useEffect(() => {
+    const stored = localStorage.getItem("imageHistory");
+    if (stored) {
+      setHistory(JSON.parse(stored));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("imageHistory", JSON.stringify(history));
+  }, [history]);
+
+  const scrollHistory = (dir) => {
+    const scrollAmount = 200;
+    if (historyRef.current) {
+      historyRef.current.scrollBy({
+        left: dir === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+  const clearHistory = () => {
+    setHistory([]);
+    localStorage.removeItem("imageHistory");
+  };
 
   async function create() {
     if (!prompt) {
@@ -55,6 +82,7 @@ const App = () => {
       const blob = await response.blob();
       const imageUrl = URL.createObjectURL(blob);
       setSorc(imageUrl);
+      setHistory((prev) => [imageUrl, ...prev.slice(0, 19)]);
     } catch (err) {
       setError("Error generating image: " + err.message);
     } finally {
@@ -71,7 +99,6 @@ const App = () => {
           <div className="txt">Size: </div>
           <select
             name="aspect_ratio"
-            id="aspect_ratio"
             value={scale}
             onChange={(e) => setScale(e.target.value)}
           >
@@ -87,7 +114,6 @@ const App = () => {
           <div className="txt">Style: </div>
           <select
             name="style"
-            id="style"
             value={model}
             onChange={(e) => setModel(e.target.value)}
           >
@@ -109,8 +135,6 @@ const App = () => {
       <textarea
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
-        name="prompt"
-        id="prompt"
         placeholder="Enter your prompt"
       />
 
@@ -127,6 +151,31 @@ const App = () => {
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {history.length > 0 && (
+        <div className="history-container">
+          <h3 className="history-title">Generated Images History</h3>
+          <button className="clear-button" onClick={clearHistory}>
+            Clear History
+          </button>
+
+          <div className="scroll-buttons">
+            <button onClick={() => scrollHistory("left")}>&larr;</button>
+            <div className="history-scroll" ref={historyRef}>
+              {history.map((src, index) => (
+                <img
+                  key={index}
+                  src={src}
+                  alt={`history-${index}`}
+                  className="history-image"
+                  onClick={() => setSorc(src)}
+                />
+              ))}
+            </div>
+            <button onClick={() => scrollHistory("right")}>&rarr;</button>
+          </div>
         </div>
       )}
     </div>
