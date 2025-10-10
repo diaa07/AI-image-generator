@@ -10,9 +10,9 @@ A powerful web application that allows users to generate unique images based on 
 
 ## ✨ Live Demo & Code
 
-| Status     | Live Demo                                                                                                                                     | Source Code                                                                                                                                                   |
-| :--------- | :-------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Active** | [![Live Demo](https://img.shields.io/badge/View_App-9D2EC5?style=for-the-badge&logo=vercel&logoColor=white)](**[PLACE LIVE DEMO LINK HERE]**) | [![Repo Link](https://img.shields.io/badge/GitHub_Repo-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/diaa07/AI-image-generator) |
+| Status     | Live Demo                                                                                                                                                  | Source Code                                                                                                                                                   |
+| :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Active** | [![Live Demo](https://img.shields.io/badge/View_App-9D2EC5?style=for-the-badge&logo=vercel&logoColor=white)](https://diaa07.github.io/AI-image-generator/) | [![Repo Link](https://img.shields.io/badge/GitHub_Repo-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/diaa07/AI-image-generator) |
 
 ---
 
